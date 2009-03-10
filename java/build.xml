@@ -1,0 +1,26 @@
+<project name="txt2srt" default="dist">
+	
+	<property name="dir.base" value="."/>
+	<property name="dir.build" value="${dir.base}/build"/>
+	<property name="dir.dist" value="${dir.base}/dist"/>
+	<property name="dir.src" value="${dir.base}/src"/>
+	<property name="dir.bin" value="${dir.base}/build/bin"/>
+	
+	<target name="dist" depends="build">
+		<mkdir dir="${dir.dist}" />
+		<copy todir="${dir.dist}" file="${dir.build}/${ant.project.name}.jar" />
+	</target>
+
+	<target name="build">
+		<mkdir dir="${dir.bin}" />
+		
+		<javac srcdir="${dir.src}" debug="true" destdir="${dir.bin}" />
+		<jar file="${dir.build}/${ant.project.name}.jar">
+			<fileset dir="${dir.bin}" />
+			<manifest>
+				<attribute name="Main-Class" value="net.sf.txt2srt.Txt2Srt"/>
+			</manifest>
+		</jar>
+	</target>
+
+</project>
