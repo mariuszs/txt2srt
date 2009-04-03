@@ -48,13 +48,12 @@ public class Options {
 		try {
 			StringBuilder sb = new StringBuilder();
 			int retval = Util.exec(args, null, sb, null);
-			if (retval!=0) {
-				throw new RuntimeException("Error "+retval+" launching mediainfo on '"+srcMovie+"':\n"+sb);
-			}
 			String re = "\\s*Frame\\s+rate\\s*:\\s*(\\d+.?\\d*)";
 			Matcher m = Pattern.compile(re,Pattern.CASE_INSENSITIVE).matcher(sb);
 			if (!m.find()) {
-				throw new RuntimeException("mediainfo cannot return info about framerate for movie "+srcMovie);
+				throw new RuntimeException("mediainfo cannot return info about framerate for movie "+srcMovie
+						+"\nReturn code: "+retval
+						+"\nOutput:"+sb);
 			}
 			framerate = Double.parseDouble(m.group(1));
 			System.out.println("Got framerate "+framerate+" from "+srcMovie);
