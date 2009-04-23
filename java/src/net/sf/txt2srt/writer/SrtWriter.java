@@ -2,36 +2,28 @@ package net.sf.txt2srt.writer;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Map;
 
-import net.sf.txt2srt.Subtitle;
 import net.sf.txt2srt.Subtitles;
 
-public class SrtWriter extends SubtitlesWriter {
-
+public class SrtWriter extends TextWriter {
+	protected int idx;
+	
 	public SrtWriter() {
 		super("srt", "srt");
 	}
+	public void writeSubtitles(OutputStream os, Subtitles subtitles) throws IOException {
+		idx = 1;
+		super.writeSubtitles(os, subtitles);
+	}
 
 	@Override
-	public void write(OutputStream os, Subtitles subtitles) throws IOException {
-		PrintWriter w = new PrintWriter(new OutputStreamWriter(os));
-		
-		int idx = 1;
-		for( Map.Entry<Long,Subtitle> entry : subtitles.getSubtitles().entrySet()) {
-			Subtitle subtitle = entry.getValue();
-			long start = entry.getKey();
-			long end = start+subtitle.getDuration();
-			String text = subtitle.getText().trim();
-			w.println(idx);
-			w.println(fmtTime(start)+" --> "+fmtTime(end));
-			w.println(text);
-			w.println();
-			idx++;
-		}
-		w.flush();
+	protected void writeSubtitle(PrintWriter w, long start, long duration, String text) throws IOException {
+		w.println(idx);
+		w.println(fmtTime(start)+" --> "+fmtTime(start+duration));
+		w.println(text);
+		w.println();
+		idx++;
 	}
 	
 	public String fmtTime(long v) {

@@ -30,7 +30,7 @@ abstract public class SubtitlesWriter {
 		this.extension = extension;
 	}
 	
-	abstract public void write(OutputStream os, Subtitles subtitles) throws IOException;
+	abstract public void writeSubtitles(OutputStream os, Subtitles subtitles) throws IOException;
 
 
 	// writers' registry

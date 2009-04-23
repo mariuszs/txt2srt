@@ -12,8 +12,9 @@ import net.sf.txt2srt.writer.SubtitlesWriter;
 
 public class Txt2Srt {
 	
-	public void convert(String[] srcs) throws IOException {
-		Options options = new Options();
+	public void convert(String[] srcs, Options options) throws IOException {
+		if (srcs==null || srcs.length==0)
+			syntax(0,options);
 		
 		for(String src : srcs) {
 			options.setSrc(src);
@@ -47,13 +48,21 @@ public class Txt2Srt {
 				dst = Util.removeExtension(options.getSrc())+"."+w.getExtension();
 			}
 			FileOutputStream os = new FileOutputStream(dst);
-			w.write(os, subtitles);
+			w.writeSubtitles(os, subtitles);
 			os.close();
 			System.out.println("Written to "+dst+" as "+w.getType());
 		}
 	}
 	
 	public static void main(String[] args) throws Exception {
-		new Txt2Srt().convert(args);
+		new Txt2Srt().convert(args,new Options());
+	}
+	
+	public static void syntax(Integer exitCode, Options options) {
+		System.out.println("txt2srt version "+options.getImplementationVersion());
+		System.out.println("Usage:");
+		System.out.println("\tjava -jar txt2srt.jar file1 [file2 [...]]");
+		if (exitCode!=null)
+			System.exit(exitCode);
 	}
 }

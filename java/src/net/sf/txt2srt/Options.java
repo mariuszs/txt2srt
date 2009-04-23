@@ -142,4 +142,8 @@ public class Options {
 		else
 			resetValues.remove(name);
 	}
+	
+	public String getImplementationVersion() {
+		return this.getClass().getPackage().getImplementationVersion();
+	}
 }
