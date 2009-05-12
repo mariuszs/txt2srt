@@ -18,14 +18,22 @@ abstract public class LineTextReader extends PlainTextReader {
 	public Subtitles read(Reader r, Options options) throws IOException {
 		Subtitles subtitles = new Subtitles();
 		BufferedReader br = new BufferedReader(r);
-		String line;
+		String line; int lineno = 0; int reallineno = 0; 
 		while((line=br.readLine())!=null) {
+			lineno++;
 			if (line.trim().length()==0)
 				continue;
+			reallineno++;
 			Matcher m = getLinePattern().matcher(line);
 			// if wrong line try to ignore it
-			if (!m.matches())
-				throw new InvalidFormatException();
+			if (!m.matches()) {
+				String msg = "Invalid format at line "+lineno;
+				if (reallineno>1) {
+					System.err.println(msg+". Ignoring: '"+line+"'");
+					continue;
+				}
+				throw new InvalidFormatException(msg);
+			}
 			long start = getStart(m.group(1),options);
 			long duration = getDuration(start,m.group(2),options);
 			String text = getText(m.group(3),options);
