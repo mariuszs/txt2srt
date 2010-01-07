@@ -1,25 +1,52 @@
 package net.sf.txt2srt;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import net.sf.txt2srt.reader.InvalidFormatException;
 import net.sf.txt2srt.reader.SubtitlesReader;
 import net.sf.txt2srt.writer.SubtitlesWriter;
 
 public class Txt2Srt {
+	static public final String[] MOVIE_EXTS = {".avi",".mkv"};
 	
 	public void convert(String[] srcs, Options options) throws IOException {
 		if (srcs==null || srcs.length==0)
 			syntax(0,options);
 		
 		for(String src : srcs) {
-			options.setSrc(src);
-			convert(options);
+			File f = new File(src);
+			if (f.isDirectory()) {
+				Map<String,File> txts = Util.list(f, null, Pattern.compile("\\.txt$"));
+				if (txts.isEmpty())
+					continue;
+				ArrayList<String> srcs2 = new ArrayList<String>();
+				for(File f2 : txts.values()) {
+					String s2 = f2.getPath();
+					if (checkAlternateFileExtension(s2.substring(0,s2.length()-4),MOVIE_EXTS)!=null)
+						srcs2.add(s2);
+				}
+				convert( srcs2.toArray(new String[srcs2.size()]), options);
+			} else {
+				options.setSrc(src);
+				convert(options);
+			}
 		}
+	}
+	private File checkAlternateFileExtension(String prefix, String[] exts) {
+		for(String ext : exts) {
+			File f = new File(prefix+ext);
+			if (f.exists() && f.isFile())
+				return f;
+		}
+		return null;
 	}
 	public void convert(Options options) throws IOException {
 		String dstType = options.getDstType();
