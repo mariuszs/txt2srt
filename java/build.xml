@@ -1,7 +1,7 @@
 <project name="txt2srt" default="dist">
 	
 	<property name="project" value="${ant.project.name}"/>
-	<property name="version" value="1.0.5"/>
+	<property name="version" value="1.0.6"/>
 	
 	<property name="dir.base" value="."/>
 	<property name="dir.build" value="${dir.base}/build"/>

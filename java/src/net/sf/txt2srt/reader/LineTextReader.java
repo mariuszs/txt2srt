@@ -17,7 +17,7 @@ abstract public class LineTextReader extends PlainTextReader {
 	@Override
 	public Subtitles read(Reader r, Options options) throws IOException {
 		Subtitles subtitles = new Subtitles();
-		BufferedReader br = new BufferedReader(r);
+		BufferedReader br = new BufferedReader(r,1024);
 		String line; int lineno = 0; int reallineno = 0; 
 		while((line=br.readLine())!=null) {
 			lineno++;
