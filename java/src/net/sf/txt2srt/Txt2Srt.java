@@ -35,8 +35,9 @@ public class Txt2Srt {
 				}
 				convert( srcs2.toArray(new String[srcs2.size()]), options);
 			} else {
-				options.setSrc(src);
-				convert(options);
+				Options srcOptions = new Options(options);
+				srcOptions.setSrc(src);
+				convert(srcOptions);
 			}
 		}
 	}

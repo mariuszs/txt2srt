@@ -1,0 +1,2 @@
+1.0.7
+	- fixed handling frame rates from many files (issue 7)

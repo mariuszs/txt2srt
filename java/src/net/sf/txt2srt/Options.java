@@ -2,9 +2,7 @@ package net.sf.txt2srt;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +17,14 @@ public class Options {
 	static public final String SRCMOVIE = "srcMovie";
 	
 	protected Map<String, Object> values = new LinkedHashMap<String, Object>();
-	protected List<String> resetValues = new ArrayList<String>();
+	protected Options parent;
+	
+	public Options(Options parent) {
+		this.parent = parent;
+	}
+	public Options() {
+		this(null);
+	}
 
 	public String getEncoding() {
 		return (String)getValue(ENCODING);
@@ -31,7 +36,7 @@ public class Options {
 		Double framerate = (Double)getValue(FRAMERATE);
 		if (framerate==null) {
 			framerate = findFramerate();
-			setValue(FRAMERATE,framerate,true);
+			setValue(FRAMERATE,framerate);
 		}
 		return framerate;
 	}
@@ -39,6 +44,9 @@ public class Options {
 		setValue(FRAMERATE, framerate);
 	}
 	protected Double findFramerate() {
+		if (parent!=null)
+			return parent.findFramerate();
+		
 		Double framerate = null;
 		String src = getSrc();
 		String srcMovie = getSrcMovie();
@@ -83,7 +91,7 @@ public class Options {
 					break;
 				}
 			}
-			setValue(SRCMOVIE,srcMovie,true);
+			setValue(SRCMOVIE,srcMovie);
 		}
 		return srcMovie;
 	}
@@ -100,7 +108,7 @@ public class Options {
 		Long durationDefault = (Long)getValue(DURATIONDEFAULT);
 		if (durationDefault==null) {
 			durationDefault = (long)3000;
-			setValue(DURATIONDEFAULT,durationDefault,true);
+			setValue(DURATIONDEFAULT,durationDefault);
 		}
 		return durationDefault;
 	}
@@ -112,7 +120,7 @@ public class Options {
 		String dstType = (String)getValue(DSTTYPE);
 		if (dstType==null) {
 			dstType = "srt";
-			setValue(DSTTYPE, dstType, true);
+			setValue(DSTTYPE, dstType);
 		}
 		return dstType;
 	}
@@ -120,27 +128,13 @@ public class Options {
 		setValue(DSTTYPE, dstType);
 	}
 
-	public void addResetValue(String key) {
-		resetValues.add(key);
-	}
-	public void reset() {
-		for(String key : resetValues) {
-			values.remove(key);
-		}
-	}
-	
 	protected Object getValue(String name) {
+		if (!values.containsKey(name))
+			return parent!=null?parent.getValue(name):null;
 		return values.get(name);
 	}
 	protected void setValue(String name, Object v) {
-		setValue(name,v,false);
-	}
-	protected void setValue(String name, Object v, boolean addResetValue) {
 		values.put(name,v);
-		if (addResetValue)
-			resetValues.add(name);
-		else
-			resetValues.remove(name);
 	}
 	
 	public String getImplementationVersion() {
