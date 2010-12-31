@@ -18,7 +18,7 @@ public class TxtMdvdReader extends LineTextReader {
 	}
 	protected long toTime(String s, Options options) {
 		long frame = Long.parseLong(s);
-		double framerate = options.getFramerate();
+		double framerate = options.getSrcMovieFramerate();
 		long v = (long)(1000*frame/framerate);
 		return v;
 	}

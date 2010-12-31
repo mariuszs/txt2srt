@@ -83,7 +83,10 @@ public class Txt2Srt {
 	}
 	
 	public static void main(String[] args) throws Exception {
+		long t1 = System.currentTimeMillis();
 		new Txt2Srt().convert(args,new Options());
+		long t2 = System.currentTimeMillis();
+		System.out.println("Done in "+(t2-t1)+"ms");
 	}
 	
 	public static void syntax(Integer exitCode, Options options) {

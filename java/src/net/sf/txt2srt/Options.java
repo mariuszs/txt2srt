@@ -12,6 +12,7 @@ public class Options {
 	static public final String DST = "dst";
 	static public final String ENCODING = "encoding";
 	static public final String FRAMERATE = "framerate";
+	static public final String FRAMERATEFORCED = "framerateForced";
 	static public final String DURATIONDEFAULT = "durationDefault";
 	static public final String DSTTYPE = "dstType";
 	static public final String SRCMOVIE = "srcMovie";
@@ -32,22 +33,22 @@ public class Options {
 	public void setEncoding(String v) {
 		setValue(ENCODING,v);
 	}
-	public Double getFramerate() {
+	public Double getSrcMovieFramerate() {
 		Double framerate = (Double)getValue(FRAMERATE);
 		if (framerate==null) {
-			framerate = findFramerate();
+			framerate = findSrcMovieFramerate();
 			setValue(FRAMERATE,framerate);
 		}
 		return framerate;
 	}
-	public void setFramerate(Double framerate) {
-		setValue(FRAMERATE, framerate);
+	public Double getFramerateForced() {
+		return (Double)getValue(FRAMERATEFORCED);
 	}
-	protected Double findFramerate() {
-		if (parent!=null)
-			return parent.findFramerate();
+	protected Double findSrcMovieFramerate() {
+		Double framerate = getFramerateForced();
+		if (framerate!=null)
+			return framerate;
 		
-		Double framerate = null;
 		String src = getSrc();
 		String srcMovie = getSrcMovie();
 		if (srcMovie==null)
