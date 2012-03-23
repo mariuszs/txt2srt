@@ -1,0 +1,10 @@
+target/
+bin/
+.project
+.settings
+.classpath
+.checkstyle
+*~
+*.log
+test-output/
+
