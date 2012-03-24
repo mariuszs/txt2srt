@@ -13,8 +13,9 @@ import net.sf.txt2srt.writer.SubtitlesWriter;
 public class Converter {
 
 	public void convert(String source, String destination, String encoding, double framerate, long duration) throws IOException {
+		
 		MovieParameters options = new SimpleOptions(encoding, framerate, duration);
-		// TODO Auto-generated method stub
+
 		SubtitlesWriter w = SubtitlesWriter.getWriter("srt");
 
 		BufferedInputStream is = new BufferedInputStream(new FileInputStream(source));
