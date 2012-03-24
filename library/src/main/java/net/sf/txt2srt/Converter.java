@@ -12,16 +12,21 @@ import net.sf.txt2srt.writer.SubtitlesWriter;
 
 public class Converter {
 
-	public void convert(String source, String destination, String encoding, double framerate, long duration) throws IOException {
-		
+	public void convert(String source, String destination, String encoding, double framerate, long duration)
+			throws IOException {
+
 		MovieParameters options = new SimpleOptions(encoding, framerate, duration);
+
+		BufferedInputStream is = new BufferedInputStream(new FileInputStream(source));
 
 		SubtitlesWriter w = SubtitlesWriter.getWriter("srt");
 
-		BufferedInputStream is = new BufferedInputStream(new FileInputStream(source));
 		Collection<SubtitlesReader> readers = SubtitlesReader.getReaders();
+
 		is.mark(1024);
+
 		Subtitles subtitles = null;
+
 		for (SubtitlesReader r : readers) {
 			try {
 				is.reset();
@@ -32,10 +37,6 @@ public class Converter {
 			}
 		}
 		if (subtitles != null) {
-			// if (dst == null) {
-			// dst = Util.removeExtension(options.getSrc()) + "." +
-			// w.getExtension();
-			// }
 			FileOutputStream os = new FileOutputStream(destination);
 			w.writeSubtitles(os, subtitles);
 			os.close();
