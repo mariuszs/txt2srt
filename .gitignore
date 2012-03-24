@@ -5,6 +5,5 @@ bin/
 .classpath
 .checkstyle
 *~
-*.log
 test-output/
 

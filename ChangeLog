@@ -1,4 +1,0 @@
-1.0.8
-	- fixed NPE when handling frame rates from many files (issue 7)
-1.0.7
-	- fixed handling frame rates from many files (issue 7)
