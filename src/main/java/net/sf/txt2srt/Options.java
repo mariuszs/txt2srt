@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Options {
+public class Options implements MovieParameters {
 	static public final String SRC = "src";
 	static public final String DST = "dst";
 	static public final String ENCODING = "encoding";
@@ -27,12 +27,18 @@ public class Options {
 		this(null);
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getEncoding()
+	 */
 	public String getEncoding() {
 		return (String)getValue(ENCODING);
 	}
 	public void setEncoding(String v) {
 		setValue(ENCODING,v);
 	}
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getSrcMovieFramerate()
+	 */
 	public Double getSrcMovieFramerate() {
 		Double framerate = (Double)getValue(FRAMERATE);
 		if (framerate==null) {
@@ -41,6 +47,9 @@ public class Options {
 		}
 		return framerate;
 	}
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getFramerateForced()
+	 */
 	public Double getFramerateForced() {
 		return (Double)getValue(FRAMERATEFORCED);
 	}
@@ -72,12 +81,18 @@ public class Options {
 		return framerate;
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getSrc()
+	 */
 	public String getSrc() {
 		return (String)getValue(SRC);
 	}
 	public void setSrc(String src) {
 		setValue(SRC,src);
 	}
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getSrcMovie()
+	 */
 	public String getSrcMovie() {
 		String srcMovie = (String)getValue(SRCMOVIE);
 		if (srcMovie==null) {
@@ -99,12 +114,18 @@ public class Options {
 	public void setSrcMovie(String srcMovie) {
 		setValue(SRCMOVIE,srcMovie);
 	}
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getDst()
+	 */
 	public String getDst() {
 		return (String)getValue(DST);
 	}
 	public void setDst(String dst) {
 		setValue(DST,dst);
 	}
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getDurationDefault()
+	 */
 	public Long getDurationDefault() {
 		Long durationDefault = (Long)getValue(DURATIONDEFAULT);
 		if (durationDefault==null) {
@@ -117,6 +138,9 @@ public class Options {
 		setValue(DURATIONDEFAULT, durationDefault);
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getDstType()
+	 */
 	public String getDstType() {
 		String dstType = (String)getValue(DSTTYPE);
 		if (dstType==null) {
@@ -138,6 +162,9 @@ public class Options {
 		values.put(name,v);
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.sf.txt2srt.Options#getImplementationVersion()
+	 */
 	public String getImplementationVersion() {
 		return this.getClass().getPackage().getImplementationVersion();
 	}

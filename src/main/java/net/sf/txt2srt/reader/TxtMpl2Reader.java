@@ -2,7 +2,7 @@ package net.sf.txt2srt.reader;
 
 import java.util.regex.Pattern;
 
-import net.sf.txt2srt.Options;
+import net.sf.txt2srt.MovieParameters;
 
 public class TxtMpl2Reader extends LineTextReader {
 	// static
@@ -13,10 +13,10 @@ public class TxtMpl2Reader extends LineTextReader {
 	}
 
 	@Override
-	protected long getDuration(long start, String s, Options options) {
+	protected long getDuration(long start, String s, MovieParameters options) {
 		return super.getDuration(start, s, options);
 	}
-	protected long toTime(String s, Options options) {
+	protected long toTime(String s, MovieParameters options) {
 		long time = Long.parseLong(s);
 		return time*100;
 	}

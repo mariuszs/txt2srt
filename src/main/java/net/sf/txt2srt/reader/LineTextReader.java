@@ -6,7 +6,7 @@ import java.io.Reader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.sf.txt2srt.Options;
+import net.sf.txt2srt.MovieParameters;
 import net.sf.txt2srt.Subtitles;
 
 abstract public class LineTextReader extends PlainTextReader {
@@ -15,7 +15,7 @@ abstract public class LineTextReader extends PlainTextReader {
 	}
 	
 	@Override
-	public Subtitles read(Reader r, Options options) throws IOException {
+	public Subtitles read(Reader r, MovieParameters options) throws IOException {
 		Subtitles subtitles = new Subtitles();
 		BufferedReader br = new BufferedReader(r,1024);
 		String line; int lineno = 0; int reallineno = 0; 
@@ -44,20 +44,20 @@ abstract public class LineTextReader extends PlainTextReader {
 	}
 	
 	
-	protected long getStart(String s, Options options) {
+	protected long getStart(String s, MovieParameters options) {
 		return toTime(s, options);
 	}
-	protected long getDuration(long start, String s, Options options) {
+	protected long getDuration(long start, String s, MovieParameters options) {
 		if (s==null || s.length()==0)
 			return options.getDurationDefault();
 		long end = toTime(s,options);
 		return end-start;
 	}
-	protected String getText(String s, Options options) {
+	protected String getText(String s, MovieParameters options) {
 		return s.replace('|','\n');
 	}
 
-	abstract protected long toTime(String s, Options options);
+	abstract protected long toTime(String s, MovieParameters options);
 	abstract protected Pattern getLinePattern();
 
 }

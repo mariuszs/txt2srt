@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
-import net.sf.txt2srt.Options;
+import net.sf.txt2srt.MovieParameters;
 import net.sf.txt2srt.Subtitles;
 
 abstract public class SubtitlesReader {
@@ -19,7 +19,7 @@ abstract public class SubtitlesReader {
 		return type;
 	}
 
-	abstract public Subtitles read(InputStream is, Options options) throws IOException;
+	abstract public Subtitles read(InputStream is, MovieParameters options) throws IOException;
 	
 	
 	// readers' registry

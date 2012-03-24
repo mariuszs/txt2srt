@@ -3,7 +3,7 @@ package net.sf.txt2srt.reader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.sf.txt2srt.Options;
+import net.sf.txt2srt.MovieParameters;
 
 public class TxtTimeReader extends LineTextReader {
 	// static
@@ -14,7 +14,7 @@ public class TxtTimeReader extends LineTextReader {
 		super("time");
 	}
 	
-	protected long toTime(String s, Options options) {
+	protected long toTime(String s, MovieParameters options) {
 		Matcher m = retime.matcher(s);
 		m.find();
 		long v = Long.parseLong(m.group(1))*3600+Long.parseLong(m.group(2))*60+Long.parseLong(m.group(3));
