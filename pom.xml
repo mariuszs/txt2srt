@@ -8,6 +8,9 @@
 	<version>1.0.9-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<name>${project.artifactId}</name>
+	<inceptionYear>2012</inceptionYear>
+
 	<modules>
 		<module>app</module>
 		<module>library</module>
@@ -16,7 +19,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.6</java.version>
 	</properties>
 
 	<distributionManagement>
@@ -41,7 +43,14 @@
 			<timezone>Europe/Warsaw</timezone>
 		</developer>
 	</developers>
-
+	
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>LICENSE.txt</url>
+		</license>
+	</licenses>
+	
 	<scm>
 		<connection>scm:git:git@github.com:ruphert/txt2srt.git</connection>
 		<developerConnection>scm:git:git@github.com:ruphert/txt2srt.git</developerConnection>
