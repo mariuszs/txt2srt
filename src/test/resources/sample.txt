@@ -1,0 +1,14 @@
+[768][815]Statua Człowieczeństwa?|Co to jest?
+[816][855]Nie udawaj.|Przyczepiłam mu nadajnik.
+[855][865]Widzisz?
+[893][918]Wygląda, że mnie masz!
+[945][953]Tak!
+[964][995]Więc, jak zdobyłeś|Statuę Człowieczeństwa?
+[1006][1029]Wyczułem złą obecność|w nocnym powietrzu...
+[1029][1049]Więc wykonałem|rytuał oczyszczenia.
+[1059][1071]Złą obecność?
+[1071][1079]Tak.
+[1083][1104]Wtedy, to spadło z nieba.
+[1105][1113]Naprawdę?
+[1162][1180]Bracie!|Co się stało?
+[1627][1644]Ciekawe,|gdzie jest Ling-Ling?
