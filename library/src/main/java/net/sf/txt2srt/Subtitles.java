@@ -6,11 +6,12 @@ import java.util.TreeMap;
 
 public class Subtitles {
 
-	private String sourceType;
+	private String sourceFormat;
+	private String sourceFilePath;
 
 	public Subtitles(String sourceType) {
 		super();
-		this.sourceType = sourceType;
+		this.sourceFormat = sourceType;
 	}
 
 	// maps start time in ms to single subtitle
@@ -33,7 +34,19 @@ public class Subtitles {
 		return subtitles.toString();
 	}
 
-	public String getSourceType() {
-		return sourceType;
+	public String getSourceFormat() {
+		return sourceFormat;
+	}
+
+	public long getDuration() {
+		return subtitles.get(subtitles.size() - 1).getDuration();
+	}
+
+	public String getSourceFilePath() {
+		return sourceFilePath;
+	}
+
+	public void setSourceFilePath(String sourceFilePath) {
+		this.sourceFilePath = sourceFilePath;
 	}
 }

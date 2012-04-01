@@ -26,7 +26,7 @@ public class Converter {
 
 		Subtitles subtitles = readSubtitle(source, encoding, framerate,
 				duration);
-		return writeSubtitle(source, subtitles);
+		return writeSubtitle(subtitles);
 	}
 
 	public void convert(final String source, final String destination,
@@ -65,12 +65,14 @@ public class Converter {
 			}
 		}
 
+		subtitles.setSourceFilePath(source);
+
 		return subtitles;
 	}
 
-	public String writeSubtitle(final String source, final Subtitles subtitles)
+	public String writeSubtitle(final Subtitles subtitles)
 			throws FileNotFoundException, IOException {
-		File sourceFile = new File(source);
+		File sourceFile = new File(subtitles.getSourceFilePath());
 		String outputFile = sourceFile.getName();
 		if (outputFile.lastIndexOf('.') > -1) {
 			outputFile = sourceFile.getPath().substring(0,

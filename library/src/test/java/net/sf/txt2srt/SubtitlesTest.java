@@ -26,7 +26,7 @@ public class SubtitlesTest {
 	@Test
 	public void shouldGetSubtitlesSourceType() {
 
-		assertThat(subtitles.getSourceType()).isEqualTo(SUBTITLE_TYPE);
+		assertThat(subtitles.getSourceFormat()).isEqualTo(SUBTITLE_TYPE);
 	}
 
 }

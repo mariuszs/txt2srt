@@ -44,8 +44,8 @@ public class ConverterTest {
 		Subtitles subtitles = conv.readSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2,
 				ENCODING_CP1250, FRAMERATE, DURATION);
 
-		assertThat(subtitles.getSourceType()).isNotEmpty();
-		assertThat(subtitles.getSourceType()).isEqualTo("mpl2");
+		assertThat(subtitles.getSourceFormat()).isNotEmpty();
+		assertThat(subtitles.getSourceFormat()).isEqualTo("mpl2");
 
 	}
 
@@ -54,8 +54,7 @@ public class ConverterTest {
 		Subtitles subtitles = conv.readSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2,
 				ENCODING_CP1250, FRAMERATE, DURATION);
 
-		String result = conv.writeSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2,
-				subtitles);
+		String result = conv.writeSubtitle(subtitles);
 
 		assertThat(result).isEqualTo(resultFile.getPath());
 		assertThat(resultFile.exists() && resultFile.isFile()).isTrue();
