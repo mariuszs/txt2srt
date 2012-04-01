@@ -23,11 +23,11 @@
 	<distributionManagement>
 		<repository>
 			<id>dropbox</id>
-			<url>file://$HOME/Dropbox/Repository/</url>
+			<url>file://${user.home}/Dropbox/Repository/</url>
 		</repository>
 		<snapshotRepository>
 			<id>dropbox</id>
-			<url>file://$HOME/Dropbox/Repository/</url>
+			<url>file://${user.home}/Dropbox/Repository/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
