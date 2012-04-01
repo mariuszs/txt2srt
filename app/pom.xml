@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.sf.txt2srt</groupId>
 		<artifactId>txt2srt-project</artifactId>
-		<version>1.0.8.3</version>
+		<version>1.0.8.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>txt2srt-app</artifactId>
