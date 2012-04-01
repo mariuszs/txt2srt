@@ -16,16 +16,6 @@ public class Converter {
 
 	Collection<SubtitlesReader> readers = SubtitlesReader.getReaders();
 
-	Subtitles subtitles = null;
-
-	File sourceFile;
-	
-	String subtitleType;
-
-	public String getSubtitleType() {
-		return subtitleType;
-	}
-
 	public Converter() {
 		super();
 	}
@@ -34,26 +24,30 @@ public class Converter {
 	public String convert(final String source, final String encoding,
 			final float framerate, final long duration) throws IOException {
 
-		readSubtitle(source, encoding, framerate, duration);
-		return writeSubtitle();
+		Subtitles subtitles = readSubtitle(source, encoding, framerate,
+				duration);
+		return writeSubtitle(source, subtitles);
 	}
 
 	public void convert(final String source, final String destination,
 			final String encoding, final float framerate, final long duration)
 			throws IOException {
 
-		readSubtitle(source, encoding, framerate, duration);
-		writeSubtitle(destination);
+		Subtitles subtitles = readSubtitle(source, encoding, framerate,
+				duration);
+		writeSubtitle(subtitles, destination);
 	}
 
-	public void readSubtitle(final String source, final String encoding,
+	public Subtitles readSubtitle(final String source, final String encoding,
 			double framerate, long duration) throws FileNotFoundException,
 			IOException {
+
+		Subtitles subtitles = null;
 
 		MovieParameters options = new SimpleOptions(encoding, framerate,
 				duration);
 
-		sourceFile = new File(source);
+		File sourceFile = new File(source);
 
 		BufferedInputStream is = new BufferedInputStream(new FileInputStream(
 				sourceFile));
@@ -66,26 +60,30 @@ public class Converter {
 				subtitles = r.read(is, options);
 				System.out
 						.println("Read from " + source + " as " + r.getType());
-				subtitleType = r.getType();
 				break;
 			} catch (InvalidFormatException ex) {
 			}
 		}
+
+		return subtitles;
 	}
 
-	public String writeSubtitle() throws FileNotFoundException, IOException {
+	public String writeSubtitle(final String source, final Subtitles subtitles)
+			throws FileNotFoundException, IOException {
+		File sourceFile = new File(source);
 		String outputFile = sourceFile.getName();
 		if (outputFile.lastIndexOf('.') > -1) {
 			outputFile = sourceFile.getPath().substring(0,
 					sourceFile.getPath().lastIndexOf('.'));
 		}
 		String destination = outputFile + ".srt";
-		writeSubtitle(destination);
+		writeSubtitle(subtitles, destination);
 		return destination;
 	}
 
-	public void writeSubtitle(final String destination)
-			throws FileNotFoundException, IOException {
+	public void writeSubtitle(final Subtitles subtitles,
+			final String destination) throws FileNotFoundException, IOException {
+
 		SubtitlesWriter writer = SubtitlesWriter.getWriter("srt");
 
 		if (subtitles != null) {

@@ -41,20 +41,21 @@ public class ConverterTest {
 	@Test
 	public void shouldReadTypeFromSpecifiedSubtitleFile()
 			throws FileNotFoundException, IOException {
-		conv.readSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2, ENCODING_CP1250,
-				FRAMERATE, DURATION);
+		Subtitles subtitles = conv.readSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2,
+				ENCODING_CP1250, FRAMERATE, DURATION);
 
-		assertThat(conv.getSubtitleType()).isNotEmpty();
-		assertThat(conv.getSubtitleType()).isEqualTo("mpl2");
+		assertThat(subtitles.getSourceType()).isNotEmpty();
+		assertThat(subtitles.getSourceType()).isEqualTo("mpl2");
 
 	}
 
 	public void shouldWriteSubtitle() throws FileNotFoundException, IOException {
 
-		conv.readSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2, ENCODING_CP1250,
-				FRAMERATE, DURATION);
+		Subtitles subtitles = conv.readSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2,
+				ENCODING_CP1250, FRAMERATE, DURATION);
 
-		String result = conv.writeSubtitle();
+		String result = conv.writeSubtitle(INPUT_SAMPLE_SUBTITLE_MPL2,
+				subtitles);
 
 		assertThat(result).isEqualTo(resultFile.getPath());
 		assertThat(resultFile.exists() && resultFile.isFile()).isTrue();
